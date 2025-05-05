@@ -62,6 +62,9 @@ containerd_registries_mirrors:
       - host: https://registry-1.docker.io
         capabilities: ["pull", "resolve"]
         skip_verify: false
+#        headers:
+#          - key: x-custom-1
+#            value: "custom header"
 #        ca: ["/etc/certs/mirror.pem"]
 #        client: [["/etc/certs/client.pem", ""],["/etc/certs/client.cert", "/etc/certs/client.key"]]
 

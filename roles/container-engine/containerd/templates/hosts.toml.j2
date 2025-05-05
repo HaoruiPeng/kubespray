@@ -10,4 +10,14 @@ server = "{{ item.server | default("https://" + item.prefix) }}"
 {% if mirror.client is defined %}
   client = [{% for pair in mirror.client %}["{{ pair[0] }}", "{{ pair[1] }}"]{% if not loop.last %},{% endif %}{% endfor %}]
 {% endif %}
+{% if mirror.headers is defined %}
+  [host."{{ mirror.host }}".header]
+{% for header in mirror.headers %}
+    {% if header.value is string %}
+    {{ header.key }} = "{{ header.value }}"
+    {% elif header.value is sequence %}
+    {{ header.key }} = ["{{ ([ header.value ] | flatten ) | join('","') }}"] 
+    {% endif %}
+{% endfor %}
+{% endif %}
 {% endfor %}
